@@ -17,6 +17,7 @@
 
 	<modules>
 		<module>know-ya-numba-game-logic</module>
+		<module>know-ya-numba-game-swing-client</module>
 	</modules>
 
 	<dependencyManagement>
@@ -30,6 +31,12 @@
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>4.8.2</version>
+			</dependency>
+
+			<dependency>
+				<groupId>games</groupId>
+				<artifactId>know-ya-numba-game-logic</artifactId>
+				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
