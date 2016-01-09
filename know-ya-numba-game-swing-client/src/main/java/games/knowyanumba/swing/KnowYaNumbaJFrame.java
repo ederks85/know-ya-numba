@@ -11,8 +11,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
-import games.knowyanumba.Game;
 import games.knowyanumba.exception.WrongNumberAnsweredException;
+import games.knowyanumba.manager.GameManager;
 
 public class KnowYaNumbaJFrame extends JFrame {
 
@@ -24,7 +24,7 @@ public class KnowYaNumbaJFrame extends JFrame {
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 		// Create the game
-		final Game knowYaNumbaGame = new Game();
+		final GameManager knowYaNumbaGameManager = new GameManager();
 
 		// Configure GUI
 		this.setLayout(new BorderLayout());
@@ -49,7 +49,7 @@ public class KnowYaNumbaJFrame extends JFrame {
 				}
 				try {
 					final int answer = Integer.parseInt(source.getText());
-					final int nextCurrent = knowYaNumbaGame.next(answer);
+					final int nextCurrent = knowYaNumbaGameManager.processAnswer(answer);
 
 					messagePanel.setDisplayMessage("Correct answer: " + source.getText());
 
@@ -76,8 +76,8 @@ public class KnowYaNumbaJFrame extends JFrame {
 		this.add(inputPanel, BorderLayout.SOUTH);
 
 		// Initialize the game
-		final int initialPrevious = knowYaNumbaGame.init();
-		final int initialCurrent = knowYaNumbaGame.start();
+		final int initialPrevious = knowYaNumbaGameManager.createNewGame();
+		final int initialCurrent = knowYaNumbaGameManager.startGame();
 
 		messagePanel.setDisplayMessage("Your first answer is: " + initialPrevious);
 		gamePanel.setDisplayMessage("<html><h1>" + String.valueOf(initialCurrent) + "</h1></html>");

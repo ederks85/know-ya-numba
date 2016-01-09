@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import games.knowyanumba.Game;
+import games.knowyanumba.manager.GameManager;
 
 /**
  * Servlet for initializing a Know-ya-numba Game
@@ -21,15 +21,15 @@ public class KnowYaNumbaGameLoadServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Initiate a new Game for a client and put it in the session
-		final Game knowYaNumbaGame = new Game();
+		final GameManager knowYaNumbaGameManager = new GameManager();
 
-		final int initialPrevious = knowYaNumbaGame.init();
-		final int initialCurrent = knowYaNumbaGame.start();
+		final int initialPrevious = knowYaNumbaGameManager.createNewGame();
+		final int initialCurrent = knowYaNumbaGameManager.startGame();
 
 		request.getSession().setAttribute("previous", initialPrevious);
 		request.getSession().setAttribute("current", initialCurrent);
 
-		request.getSession().setAttribute("knowYaNumbaGame", knowYaNumbaGame);
+		request.getSession().setAttribute("knowYaNumbaGameManager", knowYaNumbaGameManager);
 
 		// Navigate to view
 		request.getRequestDispatcher("/WEB-INF/pages/index.jsp").forward(request, response);

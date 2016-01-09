@@ -12,8 +12,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.google.gson.Gson;
 
-import games.knowyanumba.Game;
 import games.knowyanumba.exception.WrongNumberAnsweredException;
+import games.knowyanumba.manager.GameManager;
 
 /**
  * Servlet for handling answers of a Know-ya-numba Game
@@ -26,8 +26,8 @@ public class KnowYaNumbaGameAnswerServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Retrieve the current client's Game from the session
-		final Game knowYaNumbaGame = (Game)request.getSession().getAttribute("knowYaNumbaGame");
-		if (knowYaNumbaGame == null) {
+		final GameManager knowYaNumbaGameManager = (GameManager)request.getSession().getAttribute("knowYaNumbaGameManager");
+		if (knowYaNumbaGameManager == null) {
 			throw new IllegalStateException("Could not find game session");
 		}
 
@@ -39,7 +39,7 @@ public class KnowYaNumbaGameAnswerServlet extends HttpServlet {
 			answerDO = new KnowYaNumberAnswerDO(KnowYaNumberAnswer.INVALID, answer);
 		} else {
 			try {
-				final int nextCurrent = knowYaNumbaGame.next(Integer.parseInt(answer));
+				final int nextCurrent = knowYaNumbaGameManager.processAnswer(Integer.parseInt(answer));
 				request.getSession().setAttribute("previous", request.getSession().getAttribute("current"));
 				request.getSession().setAttribute("current", answer);
 				answerDO = new KnowYaNumberAnswerDO(KnowYaNumberAnswer.CORRECT, String.valueOf(nextCurrent));

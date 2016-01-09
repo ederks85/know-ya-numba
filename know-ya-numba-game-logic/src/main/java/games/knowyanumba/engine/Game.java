@@ -1,4 +1,4 @@
-package games.knowyanumba;
+package games.knowyanumba.engine;
 
 import java.util.Random;
 

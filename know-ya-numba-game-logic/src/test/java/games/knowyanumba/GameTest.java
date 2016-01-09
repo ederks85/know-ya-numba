@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import games.knowyanumba.engine.Game;
 import games.knowyanumba.exception.WrongNumberAnsweredException;
 
 public class GameTest {
