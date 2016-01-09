@@ -18,21 +18,39 @@
 	<modules>
 		<module>know-ya-numba-game-logic</module>
 		<module>know-ya-numba-game-swing-client</module>
+		<module>know-ya-numba-game-servlet-client</module>
 	</modules>
 
 	<dependencyManagement>
 		<dependencies>
+			<!-- JEE -->
+			<dependency>
+				<groupId>javax</groupId>
+				<artifactId>javaee-api</artifactId>
+				<version>7.0</version>
+			</dependency>
+
+			<!-- Common -->
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
 				<version>3.4</version>
 			</dependency>
 			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>2.5</version>
+			</dependency>
+			
+
+			<!-- Test -->
+			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>4.8.2</version>
 			</dependency>
 
+			<!-- Game -->
 			<dependency>
 				<groupId>games</groupId>
 				<artifactId>know-ya-numba-game-logic</artifactId>
@@ -48,6 +66,11 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.3</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.6</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
