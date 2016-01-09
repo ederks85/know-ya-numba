@@ -23,8 +23,8 @@ public class Game {
 
 	private final Random random;
 
-	private int previous;
-	private int current;
+	private volatile int previous;
+	private volatile int current;
 
 	public Game() {
 		this.random = new Random();
