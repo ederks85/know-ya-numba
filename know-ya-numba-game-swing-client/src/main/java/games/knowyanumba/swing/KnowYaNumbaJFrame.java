@@ -2,21 +2,23 @@ package games.knowyanumba.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
 
-import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
-import games.knowyanumba.exception.WrongNumberAnsweredException;
 import games.knowyanumba.manager.GameManager;
+import games.knowyanumba.swing.actions.InputPanelAction;
+import games.knowyanumba.swing.actions.ScoreScreenAction;
+import games.knowyanumba.swing.panels.ActionMessagePanel;
+import games.knowyanumba.swing.panels.InputPanel;
+import games.knowyanumba.swing.panels.MessagePanel;
 
 public class KnowYaNumbaJFrame extends JFrame {
 
 	private static final long serialVersionUID = 5180224106006182308L;
+
+	private final ActionMessagePanel scoreScreenPanel;
 
 	public KnowYaNumbaJFrame() {
 		this.setTitle("Know-ya-numba Game");
@@ -29,6 +31,14 @@ public class KnowYaNumbaJFrame extends JFrame {
 		// Configure GUI
 		this.setLayout(new BorderLayout());
 
+		// Configure score screen
+		final JPanel glassPane = (JPanel)this.getRootPane().getGlassPane();
+		glassPane.setLayout(new BorderLayout());
+		this.scoreScreenPanel = new ActionMessagePanel();
+		glassPane.setBackground(Color.WHITE);
+		glassPane.add(this.scoreScreenPanel, BorderLayout.CENTER);
+
+		// Configure game panels
 		final MessagePanel messagePanel = new MessagePanel();
 		messagePanel.setDisplayMessage("KNOW YA NUMBA");
 		this.add(messagePanel, BorderLayout.NORTH);
@@ -37,43 +47,11 @@ public class KnowYaNumbaJFrame extends JFrame {
 		this.add(gamePanel, BorderLayout.CENTER);
 
 		final InputPanel inputPanel = new InputPanel();
-		inputPanel.setAction(new AbstractAction() {
-			private static final long serialVersionUID = 1L;
-			@Override
-			public void actionPerformed(ActionEvent event) {
-				final JTextField source;
-				if (event.getSource() instanceof JTextField) {
-					source = (JTextField)event.getSource();
-				} else {
-					throw new IllegalStateException("Invalid source: " + event.getSource());
-				}
-				try {
-					final int answer = Integer.parseInt(source.getText());
-					final int nextCurrent = knowYaNumbaGameManager.processAnswer(answer);
-
-					messagePanel.setDisplayMessage("Correct answer: " + source.getText());
-
-					gamePanel.setDisplayMessage("<html><h1>" + String.valueOf(nextCurrent) + "</h1></html>");
-
-					inputPanel.clear();
-				} catch(NumberFormatException nfe) {
-					messagePanel.setDisplayMessage(nfe.getMessage());
-				} catch (WrongNumberAnsweredException wnae) {
-					inputPanel.disable();
-					final JPanel glassPane = (JPanel)SwingUtilities.getRootPane(inputPanel).getGlassPane();
-					glassPane.setLayout(new BorderLayout());
-					MessagePanel gameOverPanel = new MessagePanel();
-					gameOverPanel.setBackground(Color.WHITE);
-					gameOverPanel.setDisplayMessage(
-							"<html><h1>Game Over!</h1><br>" + 
-							"<center>Your answer: " + wnae.getInvalidAnswer() + "</center><br>" + 
-							"<center>Correct answer: " + wnae.getCorrectAnswer() + "</center></html>");
-					glassPane.add(gameOverPanel, BorderLayout.CENTER);
-					glassPane.setVisible(true);
-				}
-			}
-		});
 		this.add(inputPanel, BorderLayout.SOUTH);
+
+		// Set actions for handling client input
+		inputPanel.setAction(new InputPanelAction(knowYaNumbaGameManager, inputPanel, messagePanel, gamePanel, this.scoreScreenPanel));
+		this.scoreScreenPanel.setAction(new ScoreScreenAction(knowYaNumbaGameManager, inputPanel, messagePanel, gamePanel, this.scoreScreenPanel));
 
 		// Initialize the game
 		final int initialPrevious = knowYaNumbaGameManager.createNewGame();
@@ -82,6 +60,7 @@ public class KnowYaNumbaJFrame extends JFrame {
 		messagePanel.setDisplayMessage("Your first answer is: " + initialPrevious);
 		gamePanel.setDisplayMessage("<html><h1>" + String.valueOf(initialCurrent) + "</h1></html>");
 
+		// Launch game GUI
 		inputPanel.requestFocus();
 		this.setVisible(true);
 	}

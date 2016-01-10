@@ -12,8 +12,8 @@ import games.knowyanumba.exception.WrongNumberAnsweredException;
  */
 public class GameManager {
 
-	private GameState gameState;
-	private Game game;
+	private volatile GameState gameState;
+	private volatile Game game;
 
 	/**
 	 * Default constructor that should be used by clients.

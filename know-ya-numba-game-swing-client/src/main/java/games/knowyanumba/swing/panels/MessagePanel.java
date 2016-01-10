@@ -1,4 +1,4 @@
-package games.knowyanumba.swing;
+package games.knowyanumba.swing.panels;
 
 import java.awt.BorderLayout;
 

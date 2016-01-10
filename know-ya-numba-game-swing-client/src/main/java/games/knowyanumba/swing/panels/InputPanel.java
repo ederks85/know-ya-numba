@@ -1,4 +1,4 @@
-package games.knowyanumba.swing;
+package games.knowyanumba.swing.panels;
 
 import java.awt.BorderLayout;
 
@@ -32,6 +32,10 @@ public class InputPanel extends JPanel {
 
 	public void requestFocus() {
 		this.textField.requestFocusInWindow();
+	}
+
+	public void enable() {
+		this.textField.setEnabled(true);
 	}
 
 	public void disable() {
