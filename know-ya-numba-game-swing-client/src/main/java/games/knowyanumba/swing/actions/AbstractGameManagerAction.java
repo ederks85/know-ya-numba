@@ -4,7 +4,7 @@ import javax.swing.AbstractAction;
 
 import org.apache.commons.lang3.Validate;
 
-import games.knowyanumba.manager.GameManager;
+import games.knowyanumba.manager.game.GameManager;
 
 /**
  * Action that acts as a base for action that can be performed on a {@code GameManager}.

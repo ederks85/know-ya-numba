@@ -18,15 +18,17 @@
 								.done(function(data, textStatus, jqXHR ){
 										if (data.answer == "CORRECT") {
 											$("#message").html("Correct answer: " + $("#answer").val());
-											$("#current").html(data.value);
+											$("#currentValue").html(data.value);
 											$("#answer").val('');
+											$("#currentScore").html("Score: " + data.currentScore);
 										} else if (data.answer == "WRONG") {
 											$("#message").html("Incorrect answer: " + $("#answer").val());
-											$("#current").html("Should have answered: " + data.value);
+											$("#currentValue").html("Should have answered: " + data.value);
 											$("#answer").prop('disabled', true);
 
 											$("#reset").prop('disabled', false);
 											$("#reset").focus();
+											$("#currentScore").html("Score: " + data.currentScore);
 										} else if (data.answer == "INVALID") {
 											$("#message").html("Invalid answer: " + $("#answer").val());
 										} else {
@@ -38,15 +40,18 @@
 									});
 						}
 					});
+					$("#answer").focus();
 
 					$("#reset").keypress(function(e) {
 						if(e.keyCode == 13) {
 							window.location.href = "${pageContext.request.contextPath}/";
 						}
 					});
-
-					$("#answer").focus();
 					$("#reset").prop('disabled', true);
+
+					$("#currentValue").html("${currentValue}");
+
+					$("#currentScore").html("Score: ${currentScore}");
 				}
 			);
 
@@ -63,20 +68,21 @@
 			<table>
 				<thead>
 					<tr>
-						<td id="message">Your first answer is: ${previous}</td>
+						<td id="message">Your first answer is: ${previousValue}</td>
+						<td id="currentScore" />
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td id="current">${current}</td>
+						<td id="currentValue" colspan="2" />
 					</tr>
 					<tr>
-						<td>
+						<td colspan="2">
 							<input id="answer" type="text" />
 						</td>
 					</tr>
 					<tr>
-						<td>
+						<td colspan="2">
 							<input id="reset" type="button" value="reset">
 						</td>
 					</tr>

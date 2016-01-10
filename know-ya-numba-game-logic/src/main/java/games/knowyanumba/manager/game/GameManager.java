@@ -1,7 +1,8 @@
-package games.knowyanumba.manager;
+package games.knowyanumba.manager.game;
 
 import games.knowyanumba.engine.Game;
 import games.knowyanumba.exception.WrongNumberAnsweredException;
+import games.knowyanumba.manager.score.ScoreManager;
 
 /**
  * Manage the lifecycle of {@code Game} objects. This class is can be used in multi-threaded environments. it's internal state is being 
@@ -15,6 +16,7 @@ public class GameManager {
 	private volatile GameState gameState;
 	private volatile Game game;
 
+	private ScoreManager scoreManager;
 	/**
 	 * Default constructor that should be used by clients.
 	 */
@@ -28,6 +30,7 @@ public class GameManager {
 	public GameManager(final Game game) {
 		this.game = game;
 		this.gameState = GameState.NEW;
+		this.scoreManager = new ScoreManager();
 	}
 
 	public int createNewGame() {
@@ -54,7 +57,9 @@ public class GameManager {
 			throw new IllegalStateException("Cannot process answer because no game is in progress.");
 		} else {
 			try {
-				return this.game.next(answer);
+				final int newCurrentValue = this.game.next(answer);
+				this.scoreManager.increaseScore();
+				return newCurrentValue;
 			} catch (WrongNumberAnsweredException e) {
 				this.gameState = GameState.FINISHED;
 				throw e;
@@ -62,12 +67,26 @@ public class GameManager {
 		}
 	}
 
+	/**
+	 * Reset the game to it's initial state as if it was newly constructed
+	 */
 	public void reset() {
 		this.game = new Game();
 		this.gameState = GameState.NEW;
+		this.scoreManager.resetScore();
 	}
 
+	/**
+	 * @return never null
+	 */
 	public GameState getGameState() {
 		return this.gameState;
+	}
+
+	/**
+	 * @return never null
+	 */
+	public ScoreManager getScoreManager() {
+		return this.scoreManager;
 	}
 }

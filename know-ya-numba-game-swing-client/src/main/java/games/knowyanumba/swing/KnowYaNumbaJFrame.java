@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import games.knowyanumba.manager.GameManager;
+import games.knowyanumba.manager.game.GameManager;
 import games.knowyanumba.swing.actions.InputPanelAction;
 import games.knowyanumba.swing.actions.ScoreScreenAction;
 import games.knowyanumba.swing.panels.ActionMessagePanel;

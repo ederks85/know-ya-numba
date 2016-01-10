@@ -11,8 +11,8 @@ import org.mockito.MockitoAnnotations;
 
 import games.knowyanumba.engine.Game;
 import games.knowyanumba.exception.WrongNumberAnsweredException;
-import games.knowyanumba.manager.GameManager;
-import games.knowyanumba.manager.GameState;
+import games.knowyanumba.manager.game.GameManager;
+import games.knowyanumba.manager.game.GameState;
 
 public class GameManagerTest {
 

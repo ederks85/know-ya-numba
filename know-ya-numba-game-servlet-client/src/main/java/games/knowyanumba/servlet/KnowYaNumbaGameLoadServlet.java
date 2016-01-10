@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import games.knowyanumba.manager.GameManager;
+import games.knowyanumba.manager.game.GameManager;
 
 /**
  * Servlet for initializing a Know-ya-numba Game
@@ -26,11 +26,12 @@ public class KnowYaNumbaGameLoadServlet extends HttpServlet {
 		final int initialPrevious = knowYaNumbaGameManager.createNewGame();
 		final int initialCurrent = knowYaNumbaGameManager.startGame();
 
-		request.getSession().setAttribute("previous", initialPrevious);
-		request.getSession().setAttribute("current", initialCurrent);
+		request.getSession().setAttribute("previousValue", initialPrevious);
+		request.getSession().setAttribute("currentValue", initialCurrent);
 
 		request.getSession().setAttribute("knowYaNumbaGameManager", knowYaNumbaGameManager);
 
+		request.setAttribute("currentScore", knowYaNumbaGameManager.getScoreManager().getCurrentScore());
 		// Navigate to view
 		request.getRequestDispatcher("/WEB-INF/pages/index.jsp").forward(request, response);
 	}

@@ -1,4 +1,4 @@
-package games.knowyanumba.manager;
+package games.knowyanumba.manager.game;
 
 /**
  * Defines the different states a {@code Game} can be in.

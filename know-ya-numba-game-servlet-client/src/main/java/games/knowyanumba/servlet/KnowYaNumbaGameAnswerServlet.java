@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.google.gson.Gson;
 
 import games.knowyanumba.exception.WrongNumberAnsweredException;
-import games.knowyanumba.manager.GameManager;
+import games.knowyanumba.manager.game.GameManager;
 
 /**
  * Servlet for handling answers of a Know-ya-numba Game
@@ -36,18 +36,18 @@ public class KnowYaNumbaGameAnswerServlet extends HttpServlet {
 
 		String answer = request.getParameter("answer");
 		if (StringUtils.isBlank(answer)) {
-			answerDO = new KnowYaNumberAnswerDO(KnowYaNumberAnswer.INVALID, answer);
+			answerDO = new KnowYaNumberAnswerDO(KnowYaNumberAnswer.INVALID, answer, knowYaNumbaGameManager.getScoreManager().getCurrentScore());
 		} else {
 			try {
 				final int nextCurrent = knowYaNumbaGameManager.processAnswer(Integer.parseInt(answer));
-				request.getSession().setAttribute("previous", request.getSession().getAttribute("current"));
-				request.getSession().setAttribute("current", answer);
-				answerDO = new KnowYaNumberAnswerDO(KnowYaNumberAnswer.CORRECT, String.valueOf(nextCurrent));
+				request.getSession().setAttribute("previousValue", request.getSession().getAttribute("currentValue"));
+				request.getSession().setAttribute("currentValue", answer);
+				answerDO = new KnowYaNumberAnswerDO(KnowYaNumberAnswer.CORRECT, String.valueOf(nextCurrent),knowYaNumbaGameManager.getScoreManager().getCurrentScore());
 			} catch (NumberFormatException e) {
-				answerDO = new KnowYaNumberAnswerDO(KnowYaNumberAnswer.INVALID, answer);
+				answerDO = new KnowYaNumberAnswerDO(KnowYaNumberAnswer.INVALID, answer, knowYaNumbaGameManager.getScoreManager().getCurrentScore());
 			} catch (WrongNumberAnsweredException e) {
-				final String currentPrevious = String.valueOf(request.getSession().getAttribute("previous"));
-				answerDO = new KnowYaNumberAnswerDO(KnowYaNumberAnswer.WRONG, currentPrevious);
+				final String currentPrevious = String.valueOf(request.getSession().getAttribute("previousValue"));
+				answerDO = new KnowYaNumberAnswerDO(KnowYaNumberAnswer.WRONG, currentPrevious,knowYaNumbaGameManager.getScoreManager().getCurrentScore());
 			}
 		}
 

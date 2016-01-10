@@ -10,7 +10,7 @@ import javax.swing.SwingUtilities;
 import org.apache.commons.lang3.Validate;
 
 import games.knowyanumba.exception.WrongNumberAnsweredException;
-import games.knowyanumba.manager.GameManager;
+import games.knowyanumba.manager.game.GameManager;
 import games.knowyanumba.swing.panels.ActionMessagePanel;
 import games.knowyanumba.swing.panels.InputPanel;
 import games.knowyanumba.swing.panels.MessagePanel;
