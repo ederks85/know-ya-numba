@@ -26,12 +26,13 @@ public class InputPanelAction extends AbstractGameManagerAction {
 	private static final long serialVersionUID = 3014338015350805575L;
 
 	private final InputPanel inputPanel;
-	private final ActionMessagePanel scoreScreen;
-	private final MessagePanel gamePanel;
 	private final MessagePanel messagePanel;
+	private final MessagePanel gamePanel;
+	private final MessagePanel scorePanel;
+	private final ActionMessagePanel scoreScreen;
 
 	//TODO Refactor this to handling events from input
-	public InputPanelAction(final GameManager gameManager, final InputPanel inputPanel, final MessagePanel messagePanel, final MessagePanel gamePanel, final ActionMessagePanel scoreScreen) {
+	public InputPanelAction(final GameManager gameManager, final InputPanel inputPanel, final MessagePanel messagePanel, final MessagePanel gamePanel, final MessagePanel scorePanel, final ActionMessagePanel scoreScreen) {
 		super(gameManager);
 		Validate.notNull(inputPanel, "InputPanel is null");
 		Validate.notNull(messagePanel, "MessagePanel is null");
@@ -41,6 +42,7 @@ public class InputPanelAction extends AbstractGameManagerAction {
 		this.inputPanel = inputPanel;
 		this.messagePanel = messagePanel;
 		this.gamePanel = gamePanel;
+		this.scorePanel = scorePanel;
 		this.scoreScreen = scoreScreen;
 	}
 
@@ -56,25 +58,27 @@ public class InputPanelAction extends AbstractGameManagerAction {
 			final int answer = Integer.parseInt(source.getText());
 			final int nextCurrent = getGameManager().processAnswer(answer);
 
-			messagePanel.setDisplayMessage("Correct answer: " + source.getText());
+			this.messagePanel.setDisplayMessage("Correct answer: " + source.getText());
 
-			gamePanel.setDisplayMessage("<html><h1>" + String.valueOf(nextCurrent) + "</h1></html>");
+			this.gamePanel.setDisplayMessage("<html><h1>" + String.valueOf(nextCurrent) + "</h1></html>");
+			this.scorePanel.setDisplayMessage("Score: " + getGameManager().getScoreManager().getCurrentScore());
 
 			inputPanel.clear();
 		} catch(NumberFormatException nfe) {
-			messagePanel.setDisplayMessage(nfe.getMessage());
+			this.messagePanel.setDisplayMessage(nfe.getMessage());
 		} catch (WrongNumberAnsweredException wnae) {
-			inputPanel.clear();
-			inputPanel.disable();
+			this.inputPanel.clear();
+			this.inputPanel.disable();
 
 			final JPanel glassPane = (JPanel)SwingUtilities.getRootPane(inputPanel).getGlassPane();
-			scoreScreen.setDisplayMessage(
+			this.scoreScreen.setDisplayMessage(
 					"<html><h1>Game Over!</h1><br>" + 
 					"<center>Your answer: " + wnae.getInvalidAnswer() + "</center><br>" + 
-					"<center>Correct answer: " + wnae.getCorrectAnswer() + "</center></html>");
-			scoreScreen.requestDefaultButton();
+					"<center>Correct answer: " + wnae.getCorrectAnswer() + "</center><br />" +
+					"<center><b>Your score: " + getGameManager().getScoreManager().getCurrentScore() + "</b></center></html>");
+			this.scoreScreen.requestDefaultButton();
 			glassPane.setVisible(true);
-			scoreScreen.requestFocus();
+			this.scoreScreen.requestFocus();
 		}
 	}
 }

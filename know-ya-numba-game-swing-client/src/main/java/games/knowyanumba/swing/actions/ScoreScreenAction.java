@@ -24,11 +24,12 @@ public class ScoreScreenAction extends AbstractGameManagerAction {
 
 	private static final long serialVersionUID = 9220129613985137572L;
 	private final InputPanel inputPanel;
-	private final ActionMessagePanel scoreScreen;
 	private final MessagePanel messagePanel;
 	private final MessagePanel gamePanel;
+	private final MessagePanel scorePanel;
+	private final ActionMessagePanel scoreScreen;
 
-	public ScoreScreenAction(final GameManager gameManager,  final InputPanel inputPanel, final MessagePanel messagePanel, final MessagePanel gamePanel, final ActionMessagePanel scoreScreen) {
+	public ScoreScreenAction(final GameManager gameManager,  final InputPanel inputPanel, final MessagePanel messagePanel, final MessagePanel gamePanel, final MessagePanel scorePanel, final ActionMessagePanel scoreScreen) {
 		super(gameManager);
 		Validate.notNull(inputPanel, "InputPanel is null");
 		Validate.notNull(messagePanel, "MessagePanel is null");
@@ -38,6 +39,7 @@ public class ScoreScreenAction extends AbstractGameManagerAction {
 		this.inputPanel = inputPanel;
 		this.messagePanel = messagePanel;
 		this.gamePanel = gamePanel;
+		this.scorePanel = scorePanel;
 		this.scoreScreen = scoreScreen;
 
 		this.putValue(Action.NAME, "Retry");
@@ -54,6 +56,7 @@ public class ScoreScreenAction extends AbstractGameManagerAction {
 
 		this.messagePanel.setDisplayMessage("Your first answer is: " + initialPrevious);
 		this.gamePanel.setDisplayMessage("<html><h1>" + String.valueOf(initialCurrent) + "</h1></html>");
+		this.scorePanel.setDisplayMessage("Score: " + getGameManager().getScoreManager().getCurrentScore());
 
 		final JPanel glassPane = (JPanel)SwingUtilities.getRootPane(inputPanel).getGlassPane();
 		glassPane.setVisible(false);

@@ -49,9 +49,11 @@ public class KnowYaNumbaJFrame extends JFrame {
 		final InputPanel inputPanel = new InputPanel();
 		this.add(inputPanel, BorderLayout.SOUTH);
 
+		final MessagePanel scorePanel = new MessagePanel();
+		this.add(scorePanel, BorderLayout.EAST);
 		// Set actions for handling client input
-		inputPanel.setAction(new InputPanelAction(knowYaNumbaGameManager, inputPanel, messagePanel, gamePanel, this.scoreScreenPanel));
-		this.scoreScreenPanel.setAction(new ScoreScreenAction(knowYaNumbaGameManager, inputPanel, messagePanel, gamePanel, this.scoreScreenPanel));
+		inputPanel.setAction(new InputPanelAction(knowYaNumbaGameManager, inputPanel, messagePanel, gamePanel, scorePanel, this.scoreScreenPanel));
+		this.scoreScreenPanel.setAction(new ScoreScreenAction(knowYaNumbaGameManager, inputPanel, messagePanel, gamePanel, scorePanel, this.scoreScreenPanel));
 
 		// Initialize the game
 		final int initialPrevious = knowYaNumbaGameManager.createNewGame();
@@ -59,6 +61,7 @@ public class KnowYaNumbaJFrame extends JFrame {
 
 		messagePanel.setDisplayMessage("Your first answer is: " + initialPrevious);
 		gamePanel.setDisplayMessage("<html><h1>" + String.valueOf(initialCurrent) + "</h1></html>");
+		scorePanel.setDisplayMessage("Score: " + knowYaNumbaGameManager.getScoreManager().getCurrentScore());
 
 		// Launch game GUI
 		inputPanel.requestFocus();
