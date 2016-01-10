@@ -24,6 +24,9 @@
 											$("#message").html("Incorrect answer: " + $("#answer").val());
 											$("#current").html("Should have answered: " + data.value);
 											$("#answer").prop('disabled', true);
+
+											$("#reset").prop('disabled', false);
+											$("#reset").focus();
 										} else if (data.answer == "INVALID") {
 											$("#message").html("Invalid answer: " + $("#answer").val());
 										} else {
@@ -35,12 +38,22 @@
 									});
 						}
 					});
+
+					$("#reset").keypress(function(e) {
+						if(e.keyCode == 13) {
+							window.location.href = "${pageContext.request.contextPath}/";
+						}
+					});
+
+					$("#answer").focus();
+					$("#reset").prop('disabled', true);
 				}
 			);
 
 			function handleError() {
 				$("#message").html("ERROR");
 				$("#answer").prop('disabled', true);
+				$("#reset").prop('disabled', true);
 			}
 		</script>
 	</head>
@@ -60,6 +73,11 @@
 					<tr>
 						<td>
 							<input id="answer" type="text" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input id="reset" type="button" value="reset">
 						</td>
 					</tr>
 				</tbody>
