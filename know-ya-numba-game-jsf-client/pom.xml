@@ -8,11 +8,17 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>know-ya-numba-game-swing-client</artifactId>
+	<artifactId>know-ya-numba-game-jsf-client</artifactId>
 
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<dependencies>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
