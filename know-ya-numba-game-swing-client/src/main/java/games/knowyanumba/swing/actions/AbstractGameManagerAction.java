@@ -1,10 +1,8 @@
 package games.knowyanumba.swing.actions;
 
-import javax.swing.AbstractAction;
-
-import org.apache.commons.lang3.Validate;
-
 import games.knowyanumba.manager.game.GameManager;
+
+import javax.swing.AbstractAction;
 
 /**
  * Action that acts as a base for action that can be performed on a {@code GameManager}.
@@ -19,7 +17,9 @@ public abstract class AbstractGameManagerAction extends AbstractAction {
 	private GameManager gameManager;
 
 	public AbstractGameManagerAction(final GameManager gameManager) {
-		Validate.notNull(gameManager, "GameManager is null");
+		if (gameManager == null) {
+			throw new IllegalArgumentException("GameManager is null");
+		}
 		this.gameManager = gameManager;
 	}
 

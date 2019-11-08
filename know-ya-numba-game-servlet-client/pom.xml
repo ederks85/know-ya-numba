@@ -34,11 +34,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-		</dependency>
-
-		<dependency>
 			<groupId>games</groupId>
 			<artifactId>know-ya-numba-game-logic</artifactId>
 		</dependency>

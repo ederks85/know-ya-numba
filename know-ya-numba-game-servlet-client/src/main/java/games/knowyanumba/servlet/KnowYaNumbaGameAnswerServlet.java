@@ -1,19 +1,15 @@
 package games.knowyanumba.servlet;
 
-import java.io.IOException;
+import com.google.gson.Gson;
+import games.knowyanumba.exception.WrongNumberAnsweredException;
+import games.knowyanumba.manager.game.GameManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang3.StringUtils;
-
-import com.google.gson.Gson;
-
-import games.knowyanumba.exception.WrongNumberAnsweredException;
-import games.knowyanumba.manager.game.GameManager;
+import java.io.IOException;
 
 /**
  * Servlet for handling answers of a Know-ya-numba Game
@@ -35,7 +31,7 @@ public class KnowYaNumbaGameAnswerServlet extends HttpServlet {
 		KnowYaNumberAnswerDO answerDO;
 
 		String answer = request.getParameter("answer");
-		if (StringUtils.isBlank(answer)) {
+		if (answer == null || answer.strip().equals("")) {
 			answerDO = new KnowYaNumberAnswerDO(KnowYaNumberAnswer.INVALID, answer, knowYaNumbaGameManager.getScoreManager().getCurrentScore());
 		} else {
 			try {

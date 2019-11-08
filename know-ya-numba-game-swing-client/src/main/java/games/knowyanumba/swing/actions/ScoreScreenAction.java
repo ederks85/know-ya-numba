@@ -1,18 +1,14 @@
 package games.knowyanumba.swing.actions;
 
-import java.awt.event.ActionEvent;
-
-import javax.swing.Action;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
-import org.apache.commons.lang3.Validate;
-
 import games.knowyanumba.manager.game.GameManager;
 import games.knowyanumba.swing.panels.ActionMessagePanel;
 import games.knowyanumba.swing.panels.InputPanel;
 import games.knowyanumba.swing.panels.MessagePanel;
+
+import javax.swing.Action;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import java.awt.event.ActionEvent;
 
 /**
  * Action that is used on the score screen for finishing the current game initializing a new game.
@@ -31,10 +27,18 @@ public class ScoreScreenAction extends AbstractGameManagerAction {
 
 	public ScoreScreenAction(final GameManager gameManager,  final InputPanel inputPanel, final MessagePanel messagePanel, final MessagePanel gamePanel, final MessagePanel scorePanel, final ActionMessagePanel scoreScreen) {
 		super(gameManager);
-		Validate.notNull(inputPanel, "InputPanel is null");
-		Validate.notNull(messagePanel, "MessagePanel is null");
-		Validate.notNull(gamePanel, "GamePanel is null");
-		Validate.notNull(scoreScreen, "ScoreScreen is null");
+		if (inputPanel == null) {
+			throw new IllegalArgumentException("InputPanel is null");
+		}
+		if (messagePanel == null) {
+			throw new IllegalArgumentException("MessagePanel is null");
+		}
+		if (gamePanel == null) {
+			throw new IllegalArgumentException("GamePanel is null");
+		}
+		if (scoreScreen == null) {
+			throw new IllegalArgumentException("ScoreScreen is null");
+		}
 
 		this.inputPanel = inputPanel;
 		this.messagePanel = messagePanel;

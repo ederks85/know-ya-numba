@@ -1,7 +1,5 @@
 package games.knowyanumba.servlet;
 
-import org.apache.commons.lang3.Validate;
-
 public class KnowYaNumberAnswerDO {
 
 	private final KnowYaNumberAnswer answer;
@@ -9,7 +7,9 @@ public class KnowYaNumberAnswerDO {
 	private final int currentScore;
 
 	public KnowYaNumberAnswerDO(final KnowYaNumberAnswer answer, final String value, final int currentScore) {
-		Validate.notNull(answer, "KnowYaNumberAnswer is null");
+		if (answer == null) {
+			throw new IllegalArgumentException("KnowYaNumberAnswer is null");
+		}
 
 		this.answer = answer;
 		this.value = value;

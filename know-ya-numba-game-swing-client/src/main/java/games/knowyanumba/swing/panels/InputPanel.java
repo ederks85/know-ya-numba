@@ -1,12 +1,9 @@
 package games.knowyanumba.swing.panels;
 
-import java.awt.BorderLayout;
-
 import javax.swing.Action;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import org.apache.commons.lang3.Validate;
+import java.awt.BorderLayout;
 
 public class InputPanel extends JPanel {
 
@@ -22,7 +19,9 @@ public class InputPanel extends JPanel {
 	}
 
 	public void setAction(Action action) {
-		Validate.notNull(action, "Action is null");
+		if (action == null) {
+			throw new IllegalArgumentException("Action is null");
+		}
 		this.textField.setAction(action);
 	}
 

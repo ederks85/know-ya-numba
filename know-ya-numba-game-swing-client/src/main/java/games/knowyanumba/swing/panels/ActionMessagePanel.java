@@ -1,12 +1,9 @@
 package games.knowyanumba.swing.panels;
 
-import java.awt.BorderLayout;
-
 import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.SwingUtilities;
-
-import org.apache.commons.lang3.Validate;
+import java.awt.BorderLayout;
 
 public class ActionMessagePanel extends MessagePanel {
 
@@ -25,7 +22,9 @@ public class ActionMessagePanel extends MessagePanel {
 	}
 
 	public void setAction(final Action action) {
-		Validate.notNull(action, "Action is null");
+		if (action == null) {
+			throw new IllegalArgumentException("Action is null");
+		}
 		this.actionButton.setAction(action);
 	}
 
