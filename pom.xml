@@ -19,7 +19,6 @@
 		<module>know-ya-numba-game-logic</module>
 		<module>know-ya-numba-game-swing-client</module>
 		<module>know-ya-numba-game-servlet-client</module>
-		<module>know-ya-numba-game-jsf-client</module>
 	</modules>
 
 	<dependencyManagement>

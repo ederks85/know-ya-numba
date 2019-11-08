@@ -9,3 +9,8 @@ buildNumber.properties
 .project
 .classpath
 .settings
+
+.java-version
+
+.idea
+**/.DS_Store
