@@ -25,9 +25,9 @@
 		<dependencies>
 			<!-- JEE -->
 			<dependency>
-				<groupId>javax</groupId>
-				<artifactId>javaee-api</artifactId>
-				<version>7.0</version>
+				<groupId>jakarta.platform</groupId>
+				<artifactId>jakarta.jakartaee-api</artifactId>
+				<version>8.0.0</version>
 			</dependency>
 
 			<!-- Common -->
@@ -36,7 +36,6 @@
 				<artifactId>gson</artifactId>
 				<version>2.5</version>
 			</dependency>
-			
 
 			<!-- Test -->
 			<dependency>
@@ -70,18 +69,9 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-war-plugin</artifactId>
-					<version>2.6</version>
+					<version>3.2.3</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<release>13</release>
-				</configuration>
-			</plugin>
-		</plugins>
 	</build>
 </project>
