@@ -64,7 +64,7 @@ public class InputPanelAction extends AbstractGameManagerAction {
 
 			this.messagePanel.setDisplayMessage("Correct answer: " + source.getText());
 
-			this.gamePanel.setDisplayMessage("<html><h1>" + String.valueOf(nextCurrent) + "</h1></html>");
+			this.gamePanel.setDisplayMessage("<html><h1>" + nextCurrent + "</h1></html>");
 			this.scorePanel.setDisplayMessage("Score: " + getGameManager().getScoreManager().getCurrentScore());
 
 			inputPanel.clear();
@@ -76,10 +76,22 @@ public class InputPanelAction extends AbstractGameManagerAction {
 
 			final JPanel glassPane = (JPanel)SwingUtilities.getRootPane(inputPanel).getGlassPane();
 			this.scoreScreen.setDisplayMessage(
-					"<html><h1>Game Over!</h1><br>" + 
-					"<center>Your answer: " + wnae.getInvalidAnswer() + "</center><br>" + 
-					"<center>Correct answer: " + wnae.getCorrectAnswer() + "</center><br />" +
-					"<center><b>Your score: " + getGameManager().getScoreManager().getCurrentScore() + "</b></center></html>");
+				String.format(
+					"""
+					<html>
+						<body>
+							<h1>Game Over!</h1>
+							<center>Your answer: %s </center>
+							<center>Correct answer: %s </center>
+							<center><b>Your score: %d </b></center>
+						</body>
+					</html>
+					""",
+					wnae.getInvalidAnswer(),
+					wnae.getCorrectAnswer(),
+					getGameManager().getScoreManager().getCurrentScore()
+			));
+
 			this.scoreScreen.requestDefaultButton();
 			glassPane.setVisible(true);
 			this.scoreScreen.requestFocus();
